@@ -4971,10 +4971,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ruby
       objectReference: {fileID: 0}
-    - target: {fileID: 8605273234552378342, guid: aa10ad59a398c4e49b8d736b66396720, type: 3}
-      propertyPath: maxHealth
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 8605273234552378343, guid: aa10ad59a398c4e49b8d736b66396720, type: 3}
       propertyPath: m_RootOrder
       value: 1

@@ -22,6 +22,9 @@ public class RubyController : MonoBehaviour
     Animator animator;
     Vector2 lookDirection = new Vector2(1,0);
 
+    /* # Projecttile Section # */
+    public GameObject projectilePrefab;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -84,6 +87,11 @@ public class RubyController : MonoBehaviour
                 isInvincible = false;
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            Launch();
+        }
     }
 
     public void ChangeHealth(int amount)
@@ -108,5 +116,20 @@ public class RubyController : MonoBehaviour
         // So Ruby’s health will always stay between 0 and maxHealth.
 
         Debug.Log(currentHealth + "/" + maxHealth);
+    }
+
+    void Launch()
+    {
+        GameObject projectileObject = Instantiate(
+                                        projectilePrefab, 
+                                        theRB.position + Vector2.up * 0.5f, 
+                                        Quaternion.identity
+                                        ); // Quaternion.identity mean "no rotation".
+
+        Projectile projectile = projectileObject.GetComponent<Projectile>();
+
+        projectile.Launch(lookDirection, 300);
+
+        animator.SetTrigger("Launch");
     }
 }

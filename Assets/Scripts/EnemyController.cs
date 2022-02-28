@@ -14,6 +14,8 @@ public class EnemyController : MonoBehaviour
 
     Animator animator;
 
+    bool broken = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +28,11 @@ public class EnemyController : MonoBehaviour
 
     private void Update()
     {
+        if (!broken)
+        {
+            return;
+        }
+
         timer -= Time.deltaTime;
 
         if (timer < 0)
@@ -38,6 +45,11 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (!broken)
+        {
+            return;
+        }
+
         Vector2 position = theRB.position;
         if (vertical)
         {
@@ -60,10 +72,18 @@ public class EnemyController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         RubyController controller = collision.gameObject.GetComponent<RubyController>();
-
         if (controller != null)
         {
             controller.ChangeHealth(-3);
         }
+    }
+
+    public void Fix()
+    {
+        broken = false;
+        theRB.simulated = false; // Rigidbody from the Physics System simulation,
+                                 // so it won’t be taken into account by the system for collision
+
+        animator.SetTrigger("Fixed");
     }
 }
