@@ -6,9 +6,15 @@ using UnityEngine;
 
 public class RubyController : MonoBehaviour
 {
+    public int maxHealth = 5;
+    public int health { get { return currentHealth; } } // A property to handle 'currentHealth'.
+    int currentHealth;
+
+    public float movementSpeed = 3.0f;
     Rigidbody2D theRB;
     float horizontalInput;
     float verticalInput;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -16,6 +22,8 @@ public class RubyController : MonoBehaviour
         //Application.targetFrameRate = 10; // Makes the FPS 10.
 
         theRB = GetComponent<Rigidbody2D>();
+
+        currentHealth = maxHealth;
     }
 
     private void FixedUpdate()
@@ -29,8 +37,8 @@ public class RubyController : MonoBehaviour
             so there’s a chance a User Input will be missed.
          */
         Vector2 position = theRB.position;
-        position.x = position.x + 3.0f * horizontalInput * Time.deltaTime;
-        position.y = position.y + 3.0f * verticalInput * Time.deltaTime;
+        position.x = position.x + movementSpeed * horizontalInput * Time.deltaTime;
+        position.y = position.y + movementSpeed * verticalInput * Time.deltaTime;
         
         /*  - Why did we used 'Rigidbody2D.MovePosition()' instead of 'transform.position' ? 
             Because, Rigidbody moves before the game object. If it collides with any collider, it tries to move back the game object.
@@ -46,5 +54,16 @@ public class RubyController : MonoBehaviour
     {
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
+    }
+
+    public void ChangeHealth(int amount)
+    {
+        currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
+        // Clamping ensures that the first parameter (here currentHealth + amount)
+        // never goes lower than the second parameter (here 0) and
+        // never goes above the third parameter (maxHealth).
+        // So Ruby’s health will always stay between 0 and maxHealth.
+
+        Debug.Log(currentHealth + "/" + maxHealth);
     }
 }
