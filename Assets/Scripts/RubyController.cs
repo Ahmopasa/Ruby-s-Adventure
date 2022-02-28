@@ -6,10 +6,15 @@ using UnityEngine;
 
 public class RubyController : MonoBehaviour
 {
-    public int maxHealth = 5;
+    /* # Character HP # */
     public int health { get { return currentHealth; } } // A property to handle 'currentHealth'.
+    public int maxHealth = 5;
     int currentHealth;
+    bool isInvincible;
+    public float timeInvincible = 2.0f;
+    float invincibleTimer;
 
+    /* # Character Movement # */
     public float movementSpeed = 3.0f;
     Rigidbody2D theRB;
     float horizontalInput;
@@ -54,10 +59,30 @@ public class RubyController : MonoBehaviour
     {
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
+
+        if (isInvincible)
+        {
+            invincibleTimer -= Time.deltaTime;
+            if (invincibleTimer < 0.0f)
+            {
+                isInvincible = false;
+            }
+        }
     }
 
     public void ChangeHealth(int amount)
     {
+        if (amount < 0)
+        {
+            if (isInvincible)
+            {
+                return;
+            }
+
+            isInvincible = true;
+            invincibleTimer = timeInvincible;
+        }
+
         currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
         // Clamping ensures that the first parameter (here currentHealth + amount)
         // never goes lower than the second parameter (here 0) and
