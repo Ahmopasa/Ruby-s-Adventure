@@ -16,6 +16,8 @@ public class EnemyController : MonoBehaviour
 
     bool broken = true;
 
+    public ParticleSystem someEffect;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +26,8 @@ public class EnemyController : MonoBehaviour
         timer = changeTime;
 
         animator = GetComponent<Animator>();
+
+        someEffect.Play();
     }
 
     private void Update()
@@ -85,5 +89,7 @@ public class EnemyController : MonoBehaviour
                                  // so it won’t be taken into account by the system for collision
 
         animator.SetTrigger("Fixed");
+
+        someEffect.Stop();
     }
 }
