@@ -122,3 +122,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e026a0fef1b8f7409c67d4534ce46f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damegeClip: {fileID: 8300000, guid: ae904c7305df7344d86b2092c0cb3a26, type: 3}

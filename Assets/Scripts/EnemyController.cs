@@ -18,6 +18,8 @@ public class EnemyController : MonoBehaviour
 
     public ParticleSystem someEffect;
 
+    public AudioClip damegeClip;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -79,6 +81,8 @@ public class EnemyController : MonoBehaviour
         if (controller != null)
         {
             controller.ChangeHealth(-3);
+
+            controller.PlaySound(damegeClip);
         }
     }
 

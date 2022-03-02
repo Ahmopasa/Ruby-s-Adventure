@@ -102,6 +102,7 @@ MonoBehaviour:
   timeInvincible: 2
   movementSpeed: 3
   projectilePrefab: {fileID: 7720184465448876739, guid: 2bd555a569e3ca948946967df24e62b6, type: 3}
+  projectileClip: {fileID: 8300000, guid: b2edfd40873655249ba0e01a5cf705be, type: 3}
 --- !u!50 &1812725910417205892
 Rigidbody2D:
   serializedVersion: 4
