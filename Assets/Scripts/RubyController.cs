@@ -47,7 +47,7 @@ public class RubyController : MonoBehaviour
             For the physics computation to be stable, it needs to update at regular intervals (for example, every 16ms).
             However, you shouldn’t read input in the Fixedupdate function. FixedUpdate isn’t continuously running,
             so there’s a chance a User Input will be missed.
-         */
+        */
         Vector2 position = theRB.position;
         position.x = position.x + movementSpeed * horizontalInput * Time.deltaTime;
         position.y = position.y + movementSpeed * verticalInput * Time.deltaTime;
@@ -56,7 +56,7 @@ public class RubyController : MonoBehaviour
             Because, Rigidbody moves before the game object. If it collides with any collider, it tries to move back the game object.
             If we keep moving in the same direction, there'll be a fighting between game object and the rigid body.
             That fighting cause Jittering effect oh the game object.         
-         */
+        */
         theRB.MovePosition(position);
         
     }
@@ -92,6 +92,38 @@ public class RubyController : MonoBehaviour
         {
             Launch();
         }
+
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            /* - Raycasting is the action of casting a ray in the Scene and checking to see if that ray intersects with a Collider. 
+               A ray has a starting point, a direction and a length.
+               The term to “cast” a ray is used because the test is made from the starting point all along the ray until its end.
+             
+               - Here you'll cast a ray,
+               from your main character’s position, 
+               in the direction she is looking, 
+               from a small distance, for example 1 or 1.5 units. 
+            */
+            RaycastHit2D hit = Physics2D.Raycast(
+                                    theRB.position + Vector2.up * 0.2f,
+                                    lookDirection,
+                                    1.5f,
+                                    LayerMask.GetMask("NPC")
+                                    );
+
+            /* - If the Raycast didn’t intersect anything, 
+               this will be null so do nothing. 
+               Otherwise, RaycastHit2D will contain the Collider the Raycast intersected
+            */
+            if (hit.collider != null)
+            {
+                NonPlayerCharacter character = hit.collider.GetComponent<NonPlayerCharacter>();
+                if (character != null)
+                {
+                    character.DisplayDialog();
+                }
+            }
+        }
     }
 
     public void ChangeHealth(int amount)
@@ -115,7 +147,7 @@ public class RubyController : MonoBehaviour
         // never goes above the third parameter (maxHealth).
         // So Ruby’s health will always stay between 0 and maxHealth.
 
-        Debug.Log(currentHealth + "/" + maxHealth);
+        UIHealthBar.instance.SetValue(currentHealth / (float)maxHealth);
     }
 
     void Launch()
