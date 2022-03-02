@@ -25,6 +25,7 @@
 
 * I haven't tested the game on other computers, but following instructions should work to run the game:
 	* Download the the files inside ../Buildings/ and then run the "Ruby's Adventure.exe" file folder and run the .exe file in it.
+	* If you face any trouble, try downloading the .rar in the v1.0.0 release.
 	
 * Since I did not build this game using another Pc, I cannot direct you. However, if you download directly, then you can open it using Unity.
 
