@@ -19,7 +19,7 @@
 	  
 # In-game Pictures
 
-<img src="run/pictures/TheGame_picture_0.png" width="250"> <img src="run/pictures/TheGame_picture_1.png" width="250"> <img src="run/pictures/TheGame_picture_2.png" width="250">
+<img src="InGamePictures/PageI.png" width="250"> <img src="InGamePictures/PageII.png" width="250">
 
 # Installation
 
